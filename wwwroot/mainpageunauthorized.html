@@ -8,7 +8,9 @@
     <button id="searchB">Поиск</button>
     <button id="enterB">Вход</button>
 
-    <script src="/js/mainpageunauthorized.js">
+    <script>
+        document.getElementById("searchB").onclick = (() => window.location = "search");
+        document.getElementById("enterB").onclick = (() => window.location = "enter");
     </script>
 
 </body>

@@ -117,7 +117,7 @@ namespace DigitalPortfolioProject
                 }
 
                 else
-                    await context.Response.SendFileAsync("wwwroot/portfoliunoauthorized.html");
+                    await context.Response.SendFileAsync("wwwroot/portfoliounauthorized.html");
             });
 
             app.MapPost("/api/registeruser", async context =>
