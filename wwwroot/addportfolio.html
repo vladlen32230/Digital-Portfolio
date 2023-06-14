@@ -1,20 +1,64 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>Добавить портфолио</title>
+    <link rel="stylesheet" href="/css/CreatingPortfolio.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
-<body>
-    <button id="on_mainB">На главную</button>
-    Название<input id="nameI">
-    Фото<input type="file" accept="image/png, image/jpeg" id="photoI">
-    Описание<input id="descriptionI">
-    Файл<input type="file" id="fileI">
-    Ссылка<input id="referenceI">
-    <button id="saveB">Добавить</button>
-    <label id="statusL"></label>
+<body class="bg">
+    <div class="wrapper">
+            <div class="entering">
+                <div style="margin-bottom: 70px;">
+                    <label>новый проект</label>
+                </div>
+                 <button id="on_mainB" hidden>На главную</button>
+                <div style="margin-bottom: 50px;">
+                    <h3 class="helper">название проекта</h3>
+                    <input id="nameI" placeholder="введите название проекта" style="width: 381px;">
+                </div>
+                <div style="margin-bottom: 50px;">
+                    <h3 class="helper">фото для обложки проекта</h3>
+                    <input type="file" accept="image/png, image/jpeg" id="photoI">
+                    <label for="photoI" id="photoN">перетащите файл сюда</label>
+                </div>
+                <div style="margin-bottom: 50px;">
+                    <h3 class="helper">описание проекта</h3>
+                    <textarea id="descriptionI" placeholder="введите описание проекта" cols="45"></textarea>
+                </div>
+                <div style="margin-bottom: 50px;">
+                    <h3 class="helper">файлы к проекту</h3>
+                    <input type="file" id="fileI" placeholder="перетащите файл сюда">
+                    <label for="fileI" id="fileN">перетащите файл сюда</label>
+                </div>
+                <div style="margin-bottom: 50px;">
+                    <h3 class="helper">ссылка на проект</h3>
+                    <input id="referenceI" placeholder="добавьте ссылку" style="width: 571px;">
+                </div>
+                <div style="margin-bottom: 50px;">
+                    <button id="saveB" class="myButton">добавить проект</button>
+                    <label id="statusL"></label>
+                </div>
+        </div>
+    </div>
 
     <script>
+
+        let inputFile = document.getElementById('photoI');
+        let fieldName = document.getElementById('photoN');
+        inputFile.addEventListener('change', function(event){
+            let uploadFileName = event.target.files[0].name;
+            fieldName.textContent = uploadFileName;
+        })
+
+        let inputFile2 = document.getElementById('fileI');
+        let fieldName2 = document.getElementById('fileN');
+        inputFile2.addEventListener('change', function(event){
+            let uploadFileName = event.target.files[0].name;
+            fieldName2.textContent = uploadFileName;
+        })
+
         document.getElementById("on_mainB").onclick = (() => window.location.href = "/");
         const user_id = window.location.pathname.split("/")[2];
         document.getElementById("saveB").onclick = (() => {

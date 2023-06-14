@@ -1,0 +1,101 @@
+.bg{
+    background: #1B1823;
+    background: linear-gradient(180deg, rgba(18,16,57,1) 0%, rgba(112,17,121,1) 54%, rgba(221,0,197,1) 100%);
+}
+html, body{
+    min-height: 100%;
+ }
+
+.wrapper{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%; 
+    transform: translate(-50%, -50%);
+    border: 1px solid white; 
+    height: 80%;
+    width: 80%;
+    background-color: #1B1823;
+    background-image: url('images/blok_registratsii_zvezdy.png');
+    background-size: cover;
+    background-position-y: -90px;
+}
+
+input{
+    font-size: 20px; 
+    background-color: #4F4761;
+    color: white;
+    border: none;
+    height: 60px;
+    border-radius: 10px;
+    font-size: 24px;
+    min-width: 300px;
+    width: 70%;
+}
+
+.entering{
+    position: absolute;
+    float: left;
+    top: 36%;
+    left: 23%;
+    transform: translate(-50%, -50%); 
+    height: 50%; 
+    text-align:left;
+    width: 40%;
+    margin-left: 15%;
+}
+
+.enter{
+    top: 35%;
+    font-size: 250%;
+    font-family: "Bicubik";
+    color:rgb(138,43,226);
+}
+
+@font-face {
+    font-family: 'Bicubik';
+    src: local('Bicubik'), url('bicubik/bicubik.woff2') format('woff2'), url('bicubik/bicubik.woff') format('woff'), url('bicubik/bicubik.ttf') format('truetype');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: local('Roboto'), url('Roboto-Thin.ttf') format('truetype');
+    font-weight: 400;
+}
+
+.helper {
+    padding-top: 10%;
+    color: white;
+    font-size: 24px;
+    margin-bottom: 3%;
+}
+
+::placeholder{
+    font-size: 24px;
+    font-family: 'Roboto';
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+
+}
+
+.myButton {
+	background:linear-gradient(to bottom right, #472F83, #B56AFA);
+	background-color:#5a3a90;
+	border-radius:10px;
+	font-size:24px;
+    height: 60px;
+    min-width: 300px;
+    width: 70%;
+    border: none;
+    color: white;
+    margin-top: 10%;
+}
+
+.help{
+    font-family: 'Roboto';
+    font-size: 16px;
+    color: white;
+}

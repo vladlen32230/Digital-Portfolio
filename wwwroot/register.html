@@ -1,18 +1,44 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
-    <button id="on_mainB">На главную</button>
-    имя: <input id="nameI">
-    почта: <input id="emailI" type="email">
-    пароль: <input id="passwordI" type="password">
-    повтор пароля: <input id="password_repeatI" type="password">
-    <button id="registerB">Зарегистрироваться</button>
-    <label id="statusL"></label>
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="css/Registration.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
+</head>
+<body class="bg">
+    <button id="on_mainB" hidden>На главную</button>
+    <div class="wrapper">
+        <div style="margin-left: 17%; margin-top: 5%; height: 100%;">
+            <div class="entering">
+                <div style="width: 100%;">
+                    <label>РЕГИСТРАЦИЯ</label>
+                </div>
+                <div class="floating">
+                    <h3 class="helper">имя</h3>
+                    <input id="nameI" placeholder="введите имя">
+                </div>
+                <div class="floating">
+                    <h3 class="helper">email</h3>
+                    <input id="emailI" type="email" placeholder="введите email">
+                </div>
+                <div class="floating">
+                    <h3 class="helper">пароль</h3>
+                    <input id="passwordI" type="password" placeholder="введите пароль">
+                </div>
+                <div class="floating">
+                    <h3 class="helper">подтвердите пароль</h3>
+                    <input id="password_repeatI" type="password" placeholder="введите пароль">
+                </div>
+                <div class="floating">
+                <button id="registerB" class="myButton">зарегистрироваться</button>
+                <label id="statusL"></label>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
         document.getElementById("on_mainB").onclick = (() => window.location.href = "/");
         const validateEmail = (email) => {
@@ -69,6 +95,7 @@
             }
         });
     </script>
-
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </body>
 </html>

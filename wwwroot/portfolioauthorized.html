@@ -1,26 +1,85 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>Портфолио</title>
+    <link rel="stylesheet" href="/css/PortfolioForAuthorized.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 <body>
-    <button id="on_mainB">На главную</button>
-    <img id="photoIm">
-    Название: <a id="nameL"></a>
-    Автор: <a id="authorA"></a>
-    Описание: <label id="descriptionL"></label>
-    Рейтинг: <label id="ratingL"></label>
-    <label id="rating_statusL"></label>
-    <button id="likeB">Нравится</button>
-    <button id="dislikeB">Не нравится</button>
-    <button id="referenceB" hidden>Ссылка</button>
-    <button id="fileB" download hidden>Файл</button>
-
-    Комментарий: <input id="commentaryI">
-    <button id="send_commentaryB">Отправить</button>
+    <div class="bg">
+        <button id="on_mainB" hidden>На главную</button>
+        <div class="wrapper">
+        <button id="on_mainB" hidden>На главную</button>
+            <div style=" width: 100%;">
+            <div style="width: 100%; margin-top: 4%; padding-left: 16%;">
+                <label id="nameL"></label>
+            </div>
+            <div style="width: 54%; padding-left: 16%;">
+                <h6 class="helper">Автор: <a id="authorA"></a></h6>
+                <h6 class="helper" style="width: 20%;">Рейтинг: <label id="ratingL"></label></h6>
+            </div>
+            <div style="width: 75%; display: flex; flex-wrap: wrap; justify-content: space-around; margin-left: 14%;">
+                <div style="width: 551px; height: 413px; background-color: #4F4761;">
+                    <img id="photoIm" style="width: 551px; height: 413px; border: none;">
+                </div>
+                <div class="block">
+                    <label id="descriptionL"></label>
+                </div>
+            </div>
+            <div style="width: 85%; height: 10%; padding-left: 16%;">
+                <div style="float: left;">
+                    <label id="rating_statusL" style="float: center; font-size: 20px; color: white;"></label>
+                    <button id="likeB" class="myButton" style="float: right;">Нравится</button>
+                    &nbsp;<button id="dislikeB" class="myButton" style="float: left;">Не нравится</button>
+                </div>
+                <div style="float: right;">
+                <button id="referenceB" class="myButton" hidden><svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    >
+                    <path d="M14.8284 12L16.2426 13.4142L19.071 10.5858C20.6331 9.02365 20.6331 6.49099 19.071 4.9289C17.509 3.3668 14.9763 3.3668 13.4142 4.9289L10.5858 7.75732L12 9.17154L14.8284 6.34311C15.6095 5.56206 16.8758 5.56206 17.6568 6.34311C18.4379 7.12416 18.4379 8.39049 17.6568 9.17154L14.8284 12Z"
+                      fill="currentColor" />
+                    <path d="M12 14.8285L13.4142 16.2427L10.5858 19.0711C9.02372 20.6332 6.49106 20.6332 4.92896 19.0711C3.36686 17.509 3.36686 14.9764 4.92896 13.4143L7.75739 10.5858L9.1716 12L6.34317 14.8285C5.56212 15.6095 5.56212 16.8758 6.34317 17.6569C7.12422 18.4379 8.39055 18.4379 9.1716 17.6569L12 14.8285Z"
+                      fill="currentColor"/>
+                    <path d="M14.8285 10.5857C15.219 10.1952 15.219 9.56199 14.8285 9.17147C14.4379 8.78094 13.8048 8.78094 13.4142 9.17147L9.1716 13.4141C8.78107 13.8046 8.78107 14.4378 9.1716 14.8283C9.56212 15.2188 10.1953 15.2188 10.5858 14.8283L14.8285 10.5857Z"
+                      fill="currentColor"/>
+                  </svg>
+                </button>
+                <button id="fileB" download class="myButton" hidden><svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M7 18H17V16H7V18Z" fill="currentColor" />
+                    <path d="M17 14H7V12H17V14Z" fill="currentColor" />
+                    <path d="M7 10H11V8H7V10Z" fill="currentColor" />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M6 2C4.34315 2 3 3.34315 3 5V19C3 20.6569 4.34315 22 6 22H18C19.6569 22 21 20.6569 21 19V9C21 5.13401 17.866 2 14 2H6ZM6 4H13V9H19V19C19 19.5523 18.5523 20 18 20H6C5.44772 20 5 19.5523 5 19V5C5 4.44772 5.44772 4 6 4ZM15 4.10002C16.6113 4.4271 17.9413 5.52906 18.584 7H15V4.10002Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </button>
+                </div>
+            </div>
+            </div>
+        </div>
     <div id="commentaries">
-
+        <div style="width: 100%; ">
+            <label style="color: rgb(138,43,226); font-size: 20px; font-family: 'Bicubik';">комментарии:</label>
+            <textarea id="commentaryI" placeholder="оствате ваш комментарий"></textarea>
+        <button id="send_commentaryB"  class="delButton">оставить комментарий</button>
+        <br>
+        </div>
+    </div>
     </div>
 
     <script>
@@ -54,19 +113,24 @@
 
                 for (let comment of data.commentaries) {
                     const block = document.createElement("div");
+                    block.style = "border: 1px solid white; width: 100%;";
                     const name = document.createElement("a");
                     name.href = "/u/" + comment.user_id;
                     name.innerHTML = comment.name;
+                    name.style = "font-size: 20px; color: white;";
                     block.appendChild(name);
                     const image = new Image();
                     image.src = comment.photo;
+                    image.style = "background-color: #4F4761; width: 60px; height: 60px;";
                     block.appendChild(image);
                     const description = document.createElement("label");
                     description.innerHTML = comment.description;
+                    description.style = "font-size: 20px; color: white;";
                     block.appendChild(description);
                     if (comment.is_owner) {
                         const deleteB = document.createElement("button");
                         deleteB.innerHTML = "Удалить";
+                        deleteB.style = "background:linear-gradient(to bottom right, #472F83, #B56AFA); background-color:#5a3a90;border-radius:10px;font-size:14px;height: 30px;width: 20%;border: none;color: white;";
                         deleteB.onclick = (() => {
                             fetch("/api/deletecomment/" + comment.user_id + "/" + comment.id, {
                                 method: "GET"
@@ -114,6 +178,9 @@
             });
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script></body>
+
 
 </body>
 </html>

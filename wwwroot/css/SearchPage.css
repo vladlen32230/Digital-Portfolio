@@ -1,0 +1,103 @@
+.bg{
+    background: rgb(18,16,57);
+    background: linear-gradient(180deg, rgba(18,16,57,1) 0%, rgba(112,17,121,1) 54%, rgba(221,0,197,1) 100%);
+    min-height: 100%;
+}
+
+html, body{
+    min-height: 100%;
+}
+
+.funcButton{
+    color: white;
+    background-color: #1b1823;
+    float: right;
+    font-family: "Bicubik";
+    font-size: 15px;
+    border: 1px solid white;
+    min-width: 20%;
+    min-height: 53px;
+    white-space: nowrap;
+    overflow: hidden;
+    background: #1b1823;
+    text-overflow: ellipsis;
+}
+
+
+@font-face {
+    font-family: 'Bicubik';
+    src: local('Bicubik'), url('bicubik/bicubik.woff2') format('woff2'), url('bicubik/bicubik.woff') format('woff'), url('bicubik/bicubik.ttf') format('truetype');
+    font-weight: 400;
+}
+
+.search-place{
+    width: 100%;
+    float: right;
+    border: none;
+    padding-top: 5%;
+    padding-left: 17%;
+}
+
+.search-box{
+    width: 629px;
+    float:calc(inline);
+    padding: 10px;
+    border-radius: 40px;
+    border: none;
+    background: #514562;
+    height: 54px;
+}
+
+.search-btn{
+    float: right;
+    background: #514562;
+    border: 0;
+    color: white;
+    width: 10%;
+}
+
+.search-txt{
+    width: 90%;
+    height: 100% ;
+    border: 0;
+    background: none;
+    outline: none;
+    color: white;
+    font-family: "Bicubik";
+}
+
+::placeholder{
+    color: white;
+    font-family: "Bicubik";
+    font-size: 16px;
+}
+
+.wrapper{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%; 
+    transform: translate(-50%, -50%); 
+    border: 1px solid white; 
+    height: 80%;
+    width: 80%;
+    background-color: #1b1823;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    background-image: url('images/poisk_zvezdy.png');
+    background-size: cover;
+    background-position-y: -80px;
+}
+
+.search{
+    font-size: 250%;
+    font-family: "Bicubik";
+    color:rgb(138,43,226);
+    padding-bottom: 6%;
+}
+
+label{
+    font-family: "Bicubik";
+    font-size: 16px;
+    color: white;
+}

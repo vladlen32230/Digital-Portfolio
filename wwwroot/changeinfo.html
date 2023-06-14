@@ -1,22 +1,61 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>Редактировать профиль</title>
+    <link rel="stylesheet" href="/css/ChangeInfo.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
-<body>
-    <button id="on_mainB">На главную</button>
-    <input type="file" accept="image/png, image/jpeg" id="photoI">
-    Описание<input id="descriptionI">
-    Первый навык<input id="first_skillI">
-    Второй навык<input id="second_skillI">
-    Третий навык<input id="third_skillI">
-    https://vk.com/<input id="vkI">
-    https://t.me/<input id="telegramI">
-    <button id="sendB">Сохранить</button>
-    <label id="statusL"></label>
-
+<body class="bg">
+    <div class="wrapper">
+            <div class="entering">
+                <div style="margin-bottom: 70px;">
+                    <label>ваш профиль</label>
+                </div>
+                <button id="on_mainB" hidden>На главную</button>
+                <div style="margin-bottom: 50px;">
+                    <h3 class="helper">фото</h3>
+                    <input type="file" accept="image/png, image/jpeg" id="photoI">
+                    <label for="photoI" id="photoN">перетащите файл сюда</label>
+                </div>
+                <div style="margin-bottom: 50px;">
+                    <h3 class="helper">Информация о вас и вашей деятельности</h3>
+                    <textarea id="descriptionI" placeholder="заполните поле"></textarea>
+                </div>
+                <div style="margin-bottom: 50px;">
+                    <h3 class="helper">ваш навык 1</h3>
+                    <textarea id="first_skillI" placeholder="заполните поле" class="skills"></textarea>
+                </div>
+                <div style="margin-bottom: 50px;">
+                    <h3 class="helper">ваш навык 2</h3>
+                    <textarea id="second_skillI" placeholder="заполните поле" class="skills"></textarea>
+                </div>
+                <div style="margin-bottom: 50px;">
+                    <h3 class="helper">ваш навык 3</h3>
+                    <textarea id="third_skillI" placeholder="заполните поле" class="skills"></textarea>
+                </div>
+                <div style="margin-bottom: 50px;">
+                    <h3 class="helper">ВК</h3>
+                    <input id="vkI" placeholder="введите ссылку на вашу страницу">
+                </div>
+                <div style="margin-bottom: 50px;">
+                    <h3 class="helper">телеграм</h3>
+                    <input id="telegramI" placeholder="введите ваше имя пользователя">
+                </div>
+                <div style="margin-bottom: 50px;">
+                    <button id="sendB" class="myButton">сохранить изменения</button>
+                    <label id="statusL"></label>
+                </div>
+        </div>
+    </div>
     <script>
+        let inputFile = document.getElementById('photoI');
+        let fieldName = document.getElementById('photoN');
+        inputFile.addEventListener('change', function(event){
+            let uploadFileName = event.target.files[0].name;
+            fieldName.textContent = uploadFileName;
+        })
         const user_id = window.location.pathname.split("/")[2];
         document.getElementById("on_mainB").onclick = (() => window.location.href = "/");
         fetch("/api/u/" + user_id + "/getdescription", {

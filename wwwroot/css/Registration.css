@@ -1,0 +1,110 @@
+.bg{
+    min-height: 100%;
+    background: #1B1823;
+    background: linear-gradient(180deg, rgba(18,16,57,1) 0%, rgba(112,17,121,1) 54%, rgba(221,0,197,1) 100%);
+}
+
+html, body{
+    min-height: 100%;
+}
+
+.wrapper{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%; 
+    transform: translate(-50%, -50%);
+    border: 1px solid white; 
+    height: 85%;
+    min-height: 694px;
+    width: 80%;
+    min-width: 550px;
+    background-color: #1B1823;
+    background-image: url('images/blok_registratsii_zvezdy.png');
+    background-size: cover;
+    background-position-y: -70px;
+}
+
+input{
+    font-size: 20px; 
+    background-color: #4F4761;
+    color: white;
+    border: none;
+    height: 59px;
+    border-radius: 10px;
+    font-size: 24px;
+    width: 419px;
+}
+
+.entering{
+    display: flex;
+    flex-wrap: wrap;
+    height: 60%; 
+    text-align:left;
+    width: 75%;
+}
+
+label{
+    top: 30%;
+    padding-left: 2%;
+    font-size: 250%;
+    font-family: "Bicubik";
+    color:rgb(138,43,226);
+    margin-bottom: 4%;
+}
+
+@font-face {
+    font-family: 'Bicubik';
+    src: local('Bicubik'), url('bicubik/bicubik.woff2') format('woff2'), url('bicubik/bicubik.woff') format('woff'), url('bicubik/bicubik.ttf') format('truetype');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: local('Roboto'), url('Roboto-Thin.ttf') format('truetype');
+    font-weight: 400;
+}
+
+.helper {
+    color: white;
+    font-size: 30px;
+    display: table-cell;
+    width: 1px;
+    white-space: nowrap;
+    padding-bottom: 15px;
+}
+
+h3 {
+    color: white;
+    font-size: 30px;
+    display: table-cell;
+    width: 1px;
+    white-space: nowrap;
+}
+
+::placeholder{
+    font-size: 24px;
+    font-family: 'Roboto';
+}
+
+.myButton {
+	background:linear-gradient(to bottom right, #472F83, #B56AFA);
+	background-color:#5a3a90;
+	border-radius:10px;
+	font-size:24px;
+    height: 59px;
+    border: none;
+    color: white;
+    width: 419px;
+    font-family: 'Roboto';
+}
+
+.floating{
+    margin: 0 25px 10%;
+}
+
+#statusL{
+    font-size: 125%;
+    color: white;
+    font-family: 'Roboto';
+}

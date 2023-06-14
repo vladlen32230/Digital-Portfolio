@@ -1,0 +1,128 @@
+.bg{
+    background-color: #1B1823;
+    display: flex;
+    flex-direction: row;
+    min-height: 100%;
+    min-width: 100%;
+    justify-content:space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    position: absolute;
+    padding-left: 15%;
+    padding-right: 10%;
+}
+
+.wrapper{
+    border: 1px solid white;
+    min-width: 560px;
+    width: 100%;
+    background-color: #1B1823;
+    background-position-y: -50px;
+    background-image: url('images/prosmotr_proekta_zvezdy.png');
+    background-size: cover;
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 10%;
+}
+
+.block{
+    width: 409px;
+    height:  409px;
+    border: 2px solid yellow;
+}
+
+#descriptionL{
+    font-family: 'Roboto';
+    color: white;
+    font-size: 24px;
+    height: 100%;
+}
+
+@font-face {
+    font-family: 'Bicubik';
+    src: local('Bicubik'), url('bicubik/bicubik.woff2') format('woff2'), url('bicubik/bicubik.woff') format('woff'), url('bicubik/bicubik.ttf') format('truetype');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: local('Roboto'), url('Roboto-Thin.ttf') format('truetype');
+    font-weight: 400;
+}
+
+#commentaries{
+    display: flex;
+    justify-content: space-between;
+    background-color: #1B1823;
+    width: 100%;
+    flex-wrap: wrap;
+    border: 1px solid yellow;
+    margin-top: 3%;
+}
+
+.myButton {
+	background:linear-gradient(to bottom right, #472F83, #B56AFA);
+	background-color:#5a3a90;
+	border-radius:10px;
+	font-size:16px;
+    height: 40px;
+    width: 10%;
+    border: none;
+    color: white;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    min-width: 100px;
+}
+
+.comButton {
+	background:linear-gradient(to bottom right, #472F83, #B56AFA);
+	background-color:#5a3a90;
+	border-radius:10px;
+	font-size:14px;
+    height: 30px;
+    width: 20%;
+    border: none;
+    color: white;
+}
+
+textarea{
+    font-size: 20px; 
+    background-color: #4F4761;
+    color: white;
+    height: 57px;
+    min-width: 50%;
+    border-radius: 10px;
+    font-size: 24px;
+    border: none;
+    width: 100%;
+}
+
+.delButton {
+	background:linear-gradient(to bottom right, #472F83, #B56AFA);
+	background-color:#5a3a90;
+	border-radius:10px;
+	font-size:20px;
+    height: 50px;
+    width: 50px;
+    border: none;
+    color: white;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    min-width: 305px;
+}
+
+#nameL{
+    font-size: 300%;
+    font-family: "Bicubik";
+    color:rgb(138,43,226);
+    margin-bottom: 2%;
+}
+
+.helper{
+    font-size: 16px;
+    font-family: 'Roboto';
+    color: white;
+    width: 60%;
+}
+
+

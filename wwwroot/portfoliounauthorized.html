@@ -1,21 +1,43 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>Портфолио</title>
+    <link rel="stylesheet" href="/css/PortfolioForUnAuthorized.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 <body>
-    <button id="on_mainB">На главную</button>
-    <img id="photoIm">
-    Название: <label id="nameL"></label>
-    Автор: <a id="authorA"></a>
-    Описание: <label id="descriptionL"></label>
-    Рейтинг: <label id="ratingL"></label>
-    <button id="referenceB" hidden>Ссылка</button>
-    <button id="fileB" hidden>Файл</button>
-
-    <div id="commentaries">
-
+    <div class="bg">
+        <button id="on_mainB" hidden>На главную</button>
+        <div class="wrapper">
+            <div style=" width: 100%;">
+            <div style="width: 100%; margin-top: 4%; padding-left: 16%;">
+                <label id="nameL"></label>
+            </div>
+            <div style="width: 100%; padding-left: 16%;">
+                <h6 class="helper">Автор: <a id="authorA"></a></h6>
+                <h6 class="helper">Рейтинг: <label id="ratingL"></label></h6>
+            </div>
+            <div style="width: 75%; display: flex; flex-wrap: wrap; justify-content: space-around; margin-left: 14%;">
+                <div style="width: 551px; height: 413px; background-color: #4F4761;">
+                    <img id="photoIm" style="width: 551px; height: 413px; border: none;">
+                </div>
+                <div class="block">
+                    <label id="descriptionL"></label>
+                </div>
+            </div>
+            <div style="width: 100%;">
+                
+            </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div id="commentaries"style="min-height: 40px;">
+            <label style="color: rgb(138,43,226); font-size: 20px; font-family: 'Bicubik';">Комментарии:</label>
+        </div>
+        </div>
     </div>
 
     <script>
@@ -48,21 +70,27 @@
 
                 for (let comment of data.commentaries) {
                     const block = document.createElement("div");
+                    block.style = "border: 1px solid white; width: 100%;";
                     const name = document.createElement("a");
                     name.href = "/u/" + comment.user_id;
                     name.innerHTML = comment.name;
+                    name.style = "font-size: 20px; color: white;";
                     block.appendChild(name);
                     const image = new Image();
                     image.src = comment.photo;
+                    image.style = "background-color: #4F4761; width: 60px; height: 60px;";
                     block.appendChild(image);
                     const description = document.createElement("label");
                     description.innerHTML = comment.description;
+                    description.style = "font-size: 20px; color: white;";
                     block.appendChild(description);
                     document.getElementById("commentaries").appendChild(block);
                 }
             }
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script></body>
 
 </body>
 </html>

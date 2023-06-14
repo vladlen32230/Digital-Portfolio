@@ -54,37 +54,33 @@ namespace DigitalPortfolioProject
 
             app.MapGet("/u/{userid}", async (string userid, HttpContext context) =>
             {
-                using var con = new SqlConnection(connection);
-                await con.OpenAsync();
-                var command = new SqlCommand();
-                command.Connection = con;
-                command.CommandText = "SELECT count(*) " +
-                                      "FROM users " +
-                                      "WHERE id=@id";
-                command.Parameters.AddWithValue("id", userid);
-                var result = await command.ExecuteScalarAsync();
-                if ((int)result! == 1)
+                context.Response.ContentType = "text/html";
+                if (context.User.Identity?.IsAuthenticated ?? false)
                 {
-                    context.Response.ContentType = "text/html";
-                    if (context.User.Identity?.IsAuthenticated ?? false
-                        && context.User.FindFirstValue(ClaimTypes.NameIdentifier) == userid)
+                    var id = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    if (id==userid)
                         await context.Response.SendFileAsync("wwwroot/profileowner.html");
                     else
                         await context.Response.SendFileAsync("wwwroot/profilenotowner.html");
                 }
 
-                else if ((int)result! == 0)
-                    context.Response.StatusCode = 404;
-                await con.CloseAsync();
+                else
+                    await context.Response.SendFileAsync("wwwroot/profilenotowner.html");
             });
 
             app.MapGet("u/{userid}/changeinfo", async (string userid, HttpContext context) =>
             {
-                if (context.User.Identity?.IsAuthenticated ?? false &&
-                    context.User.FindFirstValue(ClaimTypes.NameIdentifier) == userid)
+                if (context.User.Identity?.IsAuthenticated ?? false)
                 {
-                    context.Response.ContentType = "text/html";
-                    await context.Response.SendFileAsync("wwwroot/changeinfo.html");
+                    var id = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    if (id==userid)
+                    {
+                        context.Response.ContentType = "text/html";
+                        await context.Response.SendFileAsync("wwwroot/changeinfo.html");
+                    }
+
+                    else
+                        context.Response.StatusCode = 403;
                 }
 
                 else
@@ -93,11 +89,17 @@ namespace DigitalPortfolioProject
 
             app.MapGet("u/{userid}/addportfolio", async (string userid, HttpContext context) =>
             {
-                if (context.User.Identity?.IsAuthenticated ?? false &&
-                    context.User.FindFirstValue(ClaimTypes.NameIdentifier) == userid)
+                if (context.User.Identity?.IsAuthenticated ?? false)
                 {
-                    context.Response.ContentType = "text/html";
-                    await context.Response.SendFileAsync("wwwroot/addportfolio.html");
+                    var id = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    if (id==userid)
+                    {
+                        context.Response.ContentType = "text/html";
+                        await context.Response.SendFileAsync("wwwroot/addportfolio.html");
+                    }
+
+                    else
+                        context.Response.StatusCode = 403;
                 }
 
                 else
@@ -482,7 +484,8 @@ namespace DigitalPortfolioProject
 
                     command.CommandText = "SELECT author_id, commentaries.description, name, photo, commentaries.id " +
                                           "FROM commentaries JOIN users ON " +
-                                          "(commentaries.author_id=users.id)";
+                                          "(commentaries.author_id=users.id) " +
+                                          "WHERE commentaries.portfolio_id=@portfolioid";
                     reader = await command.ExecuteReaderAsync();
                     result.Commentaries = new List<CommentaryInfo>();
                     while (await reader.ReadAsync())
