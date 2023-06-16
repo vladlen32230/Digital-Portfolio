@@ -193,6 +193,7 @@ namespace DigitalPortfolioProject
                         context.Response.StatusCode = 404;
                         await context.Response.WriteAsync("Почта или пароль не верны");
                     }
+
                     await con.CloseAsync();
                 }
             });
@@ -344,6 +345,7 @@ namespace DigitalPortfolioProject
                         Vk = await reader.IsDBNullAsync(4) ? "" : reader.GetString(4),
                         Telegram = await reader.IsDBNullAsync(5) ? "" : reader.GetString(5)
                     });
+
                 else
                     context.Response.StatusCode = 404;
                 await con.CloseAsync();
@@ -351,39 +353,45 @@ namespace DigitalPortfolioProject
 
             app.MapPut("api/u/{userid}/saveinfo", async (string userid, HttpContext context) =>
             {
-                if (context.User.Identity?.IsAuthenticated ?? false
-                    && context.User.FindFirstValue(ClaimTypes.NameIdentifier) == userid)
+                if (context.User.Identity?.IsAuthenticated ?? false)
                 {
-                    var data = context.Request.Form;
-                    using var con = new SqlConnection(connection);
-                    await con.OpenAsync();
-                    var command = new SqlCommand();
-                    command.Connection = con;
-                    command.CommandText = !data.ContainsKey("photo") ? "UPDATE users " +
-                                          "SET description=@description, first_skill=@first_skill, second_skill=@second_skill, " +
-                                          "third_skill=@third_skill, vk=@vk, telegram=@telegram " +
-                                          "WHERE id=@id" :
-                                          "UPDATE users " +
-                                          "SET description=@description, first_skill=@first_skill, second_skill=@second_skill, " +
-                                          "third_skill=@third_skill, vk=@vk, telegram=@telegram, photo=@photo " +
-                                          "WHERE id=@id";
-                    command.Parameters.AddWithValue("id", userid.ToString());
-                    command.Parameters.AddWithValue("description", data["description"].ToString());
-                    command.Parameters.AddWithValue("first_skill", data["first_skill"].ToString());
-                    command.Parameters.AddWithValue("second_skill", data["second_skill"].ToString());
-                    command.Parameters.AddWithValue("third_skill", data["third_skill"].ToString());
-                    command.Parameters.AddWithValue("vk", data["vk"].ToString());
-                    command.Parameters.AddWithValue("telegram", data["telegram"].ToString());
-                    if (data.ContainsKey("photo"))
+                    var curId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    if (curId == userid)
                     {
-                        var photo = data["photo"].ToString();
-                        if (photo[11] == 'p' && photo[13] == 'g')
-                            photo = string.Concat("data:image/jpeg;base64,", photo.AsSpan(22));
-                        command.Parameters.AddWithValue("photo", photo);
+                        var data = context.Request.Form;
+                        using var con = new SqlConnection(connection);
+                        await con.OpenAsync();
+                        var command = new SqlCommand();
+                        command.Connection = con;
+                        command.CommandText = !data.ContainsKey("photo") ? "UPDATE users " +
+                                              "SET description=@description, first_skill=@first_skill, second_skill=@second_skill, " +
+                                              "third_skill=@third_skill, vk=@vk, telegram=@telegram " +
+                                              "WHERE id=@id" :
+                                              "UPDATE users " +
+                                              "SET description=@description, first_skill=@first_skill, second_skill=@second_skill, " +
+                                              "third_skill=@third_skill, vk=@vk, telegram=@telegram, photo=@photo " +
+                                              "WHERE id=@id";
+                        command.Parameters.AddWithValue("id", userid.ToString());
+                        command.Parameters.AddWithValue("description", data["description"].ToString());
+                        command.Parameters.AddWithValue("first_skill", data["first_skill"].ToString());
+                        command.Parameters.AddWithValue("second_skill", data["second_skill"].ToString());
+                        command.Parameters.AddWithValue("third_skill", data["third_skill"].ToString());
+                        command.Parameters.AddWithValue("vk", data["vk"].ToString());
+                        command.Parameters.AddWithValue("telegram", data["telegram"].ToString());
+                        if (data.ContainsKey("photo"))
+                        {
+                            var photo = data["photo"].ToString();
+                            if (photo[11] == 'p' && photo[13] == 'g')
+                                photo = string.Concat("data:image/jpeg;base64,", photo.AsSpan(22));
+                            command.Parameters.AddWithValue("photo", photo);
+                        }
+
+                        await command.ExecuteNonQueryAsync();
+                        await con.CloseAsync();
                     }
 
-                    await command.ExecuteNonQueryAsync();
-                    await con.CloseAsync();
+                    else
+                        context.Response.StatusCode = 403;
                 }
 
                 else
@@ -400,35 +408,41 @@ namespace DigitalPortfolioProject
 
             app.MapPost("api/u/{userid}/addportfolio", async (string userid, HttpContext context) =>
             {
-                if (context.User.Identity?.IsAuthenticated ?? false
-                    && context.User.FindFirstValue(ClaimTypes.NameIdentifier) == userid)
+                if (context.User.Identity?.IsAuthenticated ?? false)
                 {
-                    var data = context.Request.Form;
-                    using var con = new SqlConnection(connection);
-                    await con.OpenAsync();
-                    var command = new SqlCommand();
-                    command.Connection = con;
-                    command.CommandText = "INSERT INTO portfolios(author_id, name, description, reference, project, photo) " +
-                                          "VALUES (@author_id, @name, @description, @reference, @project, @photo)";
-                    command.Parameters.AddWithValue("author_id", userid);
-                    command.Parameters.AddWithValue("name", data["name"].ToString());
-                    command.Parameters.AddWithValue("description", data["description"].ToString());
-                    command.Parameters.AddWithValue("reference", data["reference"].ToString());
-                    var project = data.ContainsKey("file") ? data["file"].ToString() : "";
-                    command.Parameters.AddWithValue("project", project);
-                    if (data.ContainsKey("photo"))
+                    var curId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    if (curId == userid)
                     {
-                        var photo = data["photo"].ToString();
-                        if (photo[11] == 'p' && photo[13] == 'g')
-                            photo = string.Concat("data:image/jpeg;base64,", photo.AsSpan(22));
-                        command.Parameters.AddWithValue("photo", photo);
+                        var data = context.Request.Form;
+                        using var con = new SqlConnection(connection);
+                        await con.OpenAsync();
+                        var command = new SqlCommand();
+                        command.Connection = con;
+                        command.CommandText = "INSERT INTO portfolios(author_id, name, description, reference, project, photo) " +
+                                              "VALUES (@author_id, @name, @description, @reference, @project, @photo)";
+                        command.Parameters.AddWithValue("author_id", userid);
+                        command.Parameters.AddWithValue("name", data["name"].ToString());
+                        command.Parameters.AddWithValue("description", data["description"].ToString());
+                        command.Parameters.AddWithValue("reference", data["reference"].ToString());
+                        var project = data.ContainsKey("file") ? data["file"].ToString() : "";
+                        command.Parameters.AddWithValue("project", project);
+                        if (data.ContainsKey("photo"))
+                        {
+                            var photo = data["photo"].ToString();
+                            if (photo[11] == 'p' && photo[13] == 'g')
+                                photo = string.Concat("data:image/jpeg;base64,", photo.AsSpan(22));
+                            command.Parameters.AddWithValue("photo", photo);
+                        }
+
+                        else
+                            command.Parameters.AddWithValue("photo", "");
+
+                        await command.ExecuteNonQueryAsync();
+                        await con.CloseAsync();
                     }
 
                     else
-                        command.Parameters.AddWithValue("photo", "");
-
-                    await command.ExecuteNonQueryAsync();
-                    await con.CloseAsync();
+                        context.Response.StatusCode = 403;
                 }
 
                 else
@@ -491,15 +505,21 @@ namespace DigitalPortfolioProject
                     result.Commentaries = new List<CommentaryInfo>();
                     while (await reader.ReadAsync())
                     {
-                        var user_id = reader.GetGuid(0);
+                        var userId = reader.GetGuid(0);
+                        var isOwner = false;
+                        if (context.User.Identity?.IsAuthenticated ?? false)
+                        {
+                            var curId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                            isOwner = userId.ToString() == curId;
+                        }
+
                         result.Commentaries.Add(new CommentaryInfo()
                         {
-                            User_id = user_id,
+                            User_id = userId,
                             Description = reader.GetString(1),
                             Name = reader.GetString(2),
                             Photo = await reader.IsDBNullAsync(3) ? "" : reader.GetString(3),
-                            Is_owner = context.User.Identity?.IsAuthenticated ?? false &&
-                                context.User.FindFirstValue(ClaimTypes.NameIdentifier) == user_id.ToString(),
+                            Is_owner = isOwner,
                             Id = reader.GetGuid(4)
                         });
                     }
@@ -536,18 +556,24 @@ namespace DigitalPortfolioProject
 
             app.MapGet("api/deletecomment/{authorid}/{commentid}", async (string authorid, string commentid, HttpContext context) =>
             {
-                if (context.User.Identity?.IsAuthenticated ?? false &&
-                    context.User.FindFirstValue(ClaimTypes.NameIdentifier) == authorid)
+                if (context.User.Identity?.IsAuthenticated ?? false)
                 {
-                    using var con = new SqlConnection(connection);
-                    await con.OpenAsync();
-                    var command = new SqlCommand();
-                    command.Connection = con;
-                    command.CommandText = "DELETE FROM commentaries " +
-                                          "WHERE id=@id";
-                    command.Parameters.AddWithValue("id", commentid);
-                    await command.ExecuteNonQueryAsync();
-                    await con.CloseAsync();
+                    var curId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    if (curId == authorid)
+                    {
+                        using var con = new SqlConnection(connection);
+                        await con.OpenAsync();
+                        var command = new SqlCommand();
+                        command.Connection = con;
+                        command.CommandText = "DELETE FROM commentaries " +
+                                              "WHERE id=@id";
+                        command.Parameters.AddWithValue("id", commentid);
+                        await command.ExecuteNonQueryAsync();
+                        await con.CloseAsync();
+                    }
+
+                    else
+                        context.Response.StatusCode = 403;
                 }
 
                 else
@@ -556,50 +582,56 @@ namespace DigitalPortfolioProject
 
             app.MapPost("api/u/{userid}/p/{portfolioid}/like", async (string userid, string portfolioid, HttpContext context) =>
             {
-                if (context.User.Identity?.IsAuthenticated ?? false &&
-                    context.User.FindFirstValue(ClaimTypes.NameIdentifier) != userid)
+                if (context.User.Identity?.IsAuthenticated ?? false)
                 {
-                    using var con = new SqlConnection(connection);
-                    await con.OpenAsync();
-                    var command = new SqlCommand();
-                    command.Connection = con;
-                    command.CommandText = "SELECT sum(rate) " +
-                                          "FROM rating " +
-                                          "WHERE author_id=@author_id AND portfolio_id=@portfolio_id";
-                    command.Parameters.AddWithValue("author_id", context.User.FindFirstValue(ClaimTypes.NameIdentifier));
-                    command.Parameters.AddWithValue("portfolio_id", portfolioid);
-                    var result = await command.ExecuteScalarAsync();
-                    if (result is not DBNull)
+                    var curId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    if (curId != userid)
                     {
-                        if ((int)result! == 1)
+                        using var con = new SqlConnection(connection);
+                        await con.OpenAsync();
+                        var command = new SqlCommand();
+                        command.Connection = con;
+                        command.CommandText = "SELECT sum(rate) " +
+                                              "FROM rating " +
+                                              "WHERE author_id=@author_id AND portfolio_id=@portfolio_id";
+                        command.Parameters.AddWithValue("author_id", context.User.FindFirstValue(ClaimTypes.NameIdentifier));
+                        command.Parameters.AddWithValue("portfolio_id", portfolioid);
+                        var result = await command.ExecuteScalarAsync();
+                        if (result is not DBNull)
                         {
-                            command.CommandText = "DELETE FROM rating " +
-                                                  "WHERE author_id=@author_id AND portfolio_id=@portfolio_id";
-                            await command.ExecuteNonQueryAsync();
-                            await context.Response.WriteAsync("Лайк убран");
+                            if ((int)result! == 1)
+                            {
+                                command.CommandText = "DELETE FROM rating " +
+                                                      "WHERE author_id=@author_id AND portfolio_id=@portfolio_id";
+                                await command.ExecuteNonQueryAsync();
+                                await context.Response.WriteAsync("Лайк убран");
+                            }
+
+                            else if ((int)result == -1)
+                            {
+                                command.CommandText = "UPDATE rating " +
+                                                      "SET rate=@rate " +
+                                                      "WHERE author_id=@author_id AND portfolio_id=@portfolio_id";
+                                command.Parameters.AddWithValue("rate", 1);
+                                await command.ExecuteNonQueryAsync();
+                                await context.Response.WriteAsync("Лайк поставлен");
+                            }
                         }
 
-                        else if ((int)result == -1)
+                        else
                         {
-                            command.CommandText = "UPDATE rating " +
-                                                  "SET rate=@rate " +
-                                                  "WHERE author_id=@author_id AND portfolio_id=@portfolio_id";
+                            command.CommandText = "INSERT INTO rating (author_id, portfolio_id, rate) " +
+                                                  "VALUES (@author_id, @portfolio_id, @rate)";
                             command.Parameters.AddWithValue("rate", 1);
                             await command.ExecuteNonQueryAsync();
                             await context.Response.WriteAsync("Лайк поставлен");
                         }
+
+                        await con.CloseAsync();
                     }
 
                     else
-                    {
-                        command.CommandText = "INSERT INTO rating (author_id, portfolio_id, rate) " +
-                                              "VALUES (@author_id, @portfolio_id, @rate)";
-                        command.Parameters.AddWithValue("rate", 1);
-                        await command.ExecuteNonQueryAsync();
-                        await context.Response.WriteAsync("Лайк поставлен");
-                    }
-
-                    await con.CloseAsync();
+                        context.Response.StatusCode = 403;
                 }
 
                 else
@@ -608,50 +640,56 @@ namespace DigitalPortfolioProject
 
             app.MapPost("api/u/{userid}/p/{portfolioid}/dislike", async (string userid, string portfolioid, HttpContext context) =>
             {
-                if (context.User.Identity?.IsAuthenticated ?? false &&
-                    context.User.FindFirstValue(ClaimTypes.NameIdentifier) != userid)
+                if (context.User.Identity?.IsAuthenticated ?? false)
                 {
-                    using var con = new SqlConnection(connection);
-                    await con.OpenAsync();
-                    var command = new SqlCommand();
-                    command.Connection = con;
-                    command.CommandText = "SELECT sum(rate) " +
-                                          "FROM rating " +
-                                          "WHERE author_id=@author_id AND portfolio_id=@portfolio_id";
-                    command.Parameters.AddWithValue("author_id", context.User.FindFirstValue(ClaimTypes.NameIdentifier));
-                    command.Parameters.AddWithValue("portfolio_id", portfolioid);
-                    var result = await command.ExecuteScalarAsync();
-                    if (result is not DBNull)
+                    var curId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    if (curId != userid)
                     {
-                        if ((int)result! == -1)
+                        using var con = new SqlConnection(connection);
+                        await con.OpenAsync();
+                        var command = new SqlCommand();
+                        command.Connection = con;
+                        command.CommandText = "SELECT sum(rate) " +
+                                              "FROM rating " +
+                                              "WHERE author_id=@author_id AND portfolio_id=@portfolio_id";
+                        command.Parameters.AddWithValue("author_id", context.User.FindFirstValue(ClaimTypes.NameIdentifier));
+                        command.Parameters.AddWithValue("portfolio_id", portfolioid);
+                        var result = await command.ExecuteScalarAsync();
+                        if (result is not DBNull)
                         {
-                            command.CommandText = "DELETE FROM rating " +
-                                                  "WHERE author_id=@author_id AND portfolio_id=@portfolio_id";
-                            await command.ExecuteNonQueryAsync();
-                            await context.Response.WriteAsync("Дизлайк убран");
+                            if ((int)result! == -1)
+                            {
+                                command.CommandText = "DELETE FROM rating " +
+                                                      "WHERE author_id=@author_id AND portfolio_id=@portfolio_id";
+                                await command.ExecuteNonQueryAsync();
+                                await context.Response.WriteAsync("Дизлайк убран");
+                            }
+
+                            else if ((int)result == 1)
+                            {
+                                command.CommandText = "UPDATE rating " +
+                                                      "SET rate=@rate " +
+                                                      "WHERE author_id=@author_id AND portfolio_id=@portfolio_id";
+                                command.Parameters.AddWithValue("rate", -1);
+                                await command.ExecuteNonQueryAsync();
+                                await context.Response.WriteAsync("Дизлайк поставлен");
+                            }
                         }
 
-                        else if ((int)result == 1)
+                        else
                         {
-                            command.CommandText = "UPDATE rating " +
-                                                  "SET rate=@rate " +
-                                                  "WHERE author_id=@author_id AND portfolio_id=@portfolio_id";
+                            command.CommandText = "INSERT INTO rating (author_id, portfolio_id, rate) " +
+                                                  "VALUES (@author_id, @portfolio_id, @rate)";
                             command.Parameters.AddWithValue("rate", -1);
                             await command.ExecuteNonQueryAsync();
                             await context.Response.WriteAsync("Дизлайк поставлен");
                         }
+
+                        await con.CloseAsync();
                     }
 
                     else
-                    {
-                        command.CommandText = "INSERT INTO rating (author_id, portfolio_id, rate) " +
-                                              "VALUES (@author_id, @portfolio_id, @rate)";
-                        command.Parameters.AddWithValue("rate", -1);
-                        await command.ExecuteNonQueryAsync();
-                        await context.Response.WriteAsync("Дизлайк поставлен");
-                    }
-
-                    await con.CloseAsync();
+                        context.Response.StatusCode = 403;
                 }
 
                 else
@@ -659,25 +697,31 @@ namespace DigitalPortfolioProject
             });
 
             app.MapDelete("api/u/{userid}/p/{portfolioid}/delete", async (string userid, string portfolioid, HttpContext context) =>
-            {
-                if (context.User.Identity?.IsAuthenticated ?? false &&
-                    context.User.FindFirstValue(ClaimTypes.NameIdentifier) == userid)
+            {   
+                if (context.User.Identity?.IsAuthenticated ?? false )
                 {
-                    using var con = new SqlConnection(connection);
-                    await con.OpenAsync();
-                    var command = new SqlCommand();
-                    command.Connection = con;
-                    command.Parameters.AddWithValue("portfolio_id", portfolioid);
-                    command.CommandText = "DELETE FROM rating " +
-                                          "WHERE portfolio_id=@portfolio_id";
-                    await command.ExecuteNonQueryAsync();
-                    command.CommandText = "DELETE FROM commentaries " +
-                                          "WHERE portfolio_id=@portfolio_id";
-                    await command.ExecuteNonQueryAsync();
-                    command.CommandText = "DELETE FROM portfolios " +
-                                          "WHERE id=@portfolio_id";
-                    await command.ExecuteNonQueryAsync();
-                    await con.CloseAsync();
+                    var curId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    if (curId == userid)
+                    {
+                        using var con = new SqlConnection(connection);
+                        await con.OpenAsync();
+                        var command = new SqlCommand();
+                        command.Connection = con;
+                        command.Parameters.AddWithValue("portfolio_id", portfolioid);
+                        command.CommandText = "DELETE FROM rating " +
+                                              "WHERE portfolio_id=@portfolio_id";
+                        await command.ExecuteNonQueryAsync();
+                        command.CommandText = "DELETE FROM commentaries " +
+                                              "WHERE portfolio_id=@portfolio_id";
+                        await command.ExecuteNonQueryAsync();
+                        command.CommandText = "DELETE FROM portfolios " +
+                                              "WHERE id=@portfolio_id";
+                        await command.ExecuteNonQueryAsync();
+                        await con.CloseAsync();
+                    }
+
+                    else
+                        context.Response.StatusCode = 403;
                 }
 
                 else
