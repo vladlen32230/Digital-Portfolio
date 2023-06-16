@@ -88,11 +88,12 @@
 
 
 .skill{
-    width: 352px;
+    min-width: 252px;
+    width: 27%;
     height: 453px;
     border: 2px solid yellow;
     flex: 1 1 auto;
-    margin: 0 50px;
+    margin: 0 30px;
     font-family: 'Roboto';
     font-size: 20px;
     color: white;

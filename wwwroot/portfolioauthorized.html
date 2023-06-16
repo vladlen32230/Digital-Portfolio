@@ -21,8 +21,8 @@
                 <h6 class="helper" style="width: 20%;">Рейтинг: <label id="ratingL"></label></h6>
             </div>
             <div style="width: 75%; display: flex; flex-wrap: wrap; justify-content: space-around; margin-left: 14%;">
-                <div style="width: 551px; height: 413px; background-color: #4F4761;">
-                    <img id="photoIm" style="width: 551px; height: 413px; border: none;">
+                <div style="width: 551px; height: 413px; background-color: #4F4761; margin-bottom: 25px;">
+                    <img id="photoIm" style="border: none;">
                 </div>
                 <div class="block">
                     <label id="descriptionL"></label>
@@ -113,19 +113,19 @@
 
                 for (let comment of data.commentaries) {
                     const block = document.createElement("div");
-                    block.style = "border: 1px solid white; width: 100%;";
+                    block.style = "border: none; padding: 1%; margin-bottom: 1%; background-color: rgb(27, 24, 35); display: flex; flex-wrap: wrap; min-width: 751px;";
+                    const image = new Image();
+                    image.src = comment.photo;
+                    image.style = "width: 60px; height: 60px; background-color: rgb(81, 69, 98); border-radius: 30px;";
+                    block.appendChild(image);
                     const name = document.createElement("a");
                     name.href = "/u/" + comment.user_id;
                     name.innerHTML = comment.name;
-                    name.style = "font-size: 20px; color: white;";
+                    name.style = "width: 70%; height: 10%; font-size: 20px; margin-left: 3%;";
                     block.appendChild(name);
-                    const image = new Image();
-                    image.src = comment.photo;
-                    image.style = "background-color: #4F4761; width: 60px; height: 60px;";
-                    block.appendChild(image);
                     const description = document.createElement("label");
                     description.innerHTML = comment.description;
-                    description.style = "font-size: 20px; color: white;";
+                    description.style = "border: 2px solid yellow; min-width: 60%; min-height: 60px; ; margin-left: 13%;margin-top: -3%; color: white;";
                     block.appendChild(description);
                     if (comment.is_owner) {
                         const deleteB = document.createElement("button");

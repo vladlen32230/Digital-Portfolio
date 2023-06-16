@@ -16,11 +16,13 @@
 
 .wrapper{
     border: 1px solid white;
-    min-width: 1496px;
+    min-width: 100%;
     background-color: #1B1823;
     display: flex;
     flex-wrap: wrap;
     min-height: 880px;
+    justify-content: space-around;
+    padding-bottom: 1%;
 }
 
 .headder{
@@ -35,18 +37,18 @@
     width: 100%;
     min-height: 880px;
     display: flex;
+    flex-wrap: wrap;
     background-position-x: 25px;
     background-position-y: 10px;
 }
 
 .block{
-    min-width: 35%;
-    height: 70%;
+    width: 520px;
     border: 2px solid yellow;
     margin-left: 10%;
-    margin-right: 20%;
     margin-top: 120px;
     padding: 3%;
+    height: 600px;
 }
 
 p{

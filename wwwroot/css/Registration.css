@@ -33,7 +33,7 @@ input{
     height: 59px;
     border-radius: 10px;
     font-size: 24px;
-    width: 419px;
+    width: 100%;
 }
 
 .entering{
@@ -100,7 +100,8 @@ h3 {
 }
 
 .floating{
-    margin: 0 25px 10%;
+    margin: 0 20px 10%;
+    width: 43%;
 }
 
 #statusL{

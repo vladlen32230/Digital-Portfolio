@@ -101,3 +101,13 @@ label{
     font-size: 16px;
     color: white;
 }
+
+.myButton {
+    background:linear-gradient(to bottom right, #472F83, #B56AFA);
+	background-color:#5a3a90;
+	border-radius:30px;
+    height: 40px;
+    width: 150px;
+    border: none;
+    color: white;
+}

@@ -58,7 +58,7 @@ namespace DigitalPortfolioProject
                 if (context.User.Identity?.IsAuthenticated ?? false)
                 {
                     var id = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
-                    if (id==userid)
+                    if (id == userid)
                         await context.Response.SendFileAsync("wwwroot/profileowner.html");
                     else
                         await context.Response.SendFileAsync("wwwroot/profilenotowner.html");
@@ -73,7 +73,7 @@ namespace DigitalPortfolioProject
                 if (context.User.Identity?.IsAuthenticated ?? false)
                 {
                     var id = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
-                    if (id==userid)
+                    if (id == userid)
                     {
                         context.Response.ContentType = "text/html";
                         await context.Response.SendFileAsync("wwwroot/changeinfo.html");
@@ -92,7 +92,7 @@ namespace DigitalPortfolioProject
                 if (context.User.Identity?.IsAuthenticated ?? false)
                 {
                     var id = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
-                    if (id==userid)
+                    if (id == userid)
                     {
                         context.Response.ContentType = "text/html";
                         await context.Response.SendFileAsync("wwwroot/addportfolio.html");
@@ -468,7 +468,8 @@ namespace DigitalPortfolioProject
                     {
                         command.CommandText = "SELECT rate " +
                                               "FROM rating " +
-                                              "WHERE author_id=@author_id";
+                                              "WHERE author_id=@author_id " +
+                                              "AND portfolio_id=@portfolioid";
                         command.Parameters.AddWithValue("author_id", context.User.FindFirstValue(ClaimTypes.NameIdentifier));
                         var authorRate = await command.ExecuteScalarAsync();
                         if (authorRate is null)
